@@ -1,0 +1,21 @@
+{
+  "name": "simple-notes-worker-cloudflare",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker for Simple Note Taker comparison app",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "create-db": "wrangler d1 create simple-notes-db",
+    "migrate": "wrangler d1 execute simple-notes-db --file=./schema.sql",
+    "seed": "wrangler d1 execute simple-notes-db --file=./seed.sql"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "wrangler": "^3.85.0",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "@types/node": "^20.10.5"
+  }
+}

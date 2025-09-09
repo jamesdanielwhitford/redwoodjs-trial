@@ -1,0 +1,16 @@
+name = "simple-notes-worker"
+main = "src/index.ts"
+compatibility_date = "2024-11-06"
+
+# D1 database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "simple-notes-db"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+# CORS headers for frontend development
+[env.development]
+vars = { FRONTEND_URL = "http://localhost:3000" }
+
+[env.production]  
+vars = { FRONTEND_URL = "https://your-frontend-domain.com" }
