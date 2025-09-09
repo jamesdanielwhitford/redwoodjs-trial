@@ -1,0 +1,76 @@
+---
+title: Cron Triggers
+description: Schedule background tasks
+---
+
+If you want to schedule a background task, [Cloudflare supports Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/).
+
+> ⚠️ **Warning:** Cron triggers currently only work when deployed to Cloudflare Workers in production. Local development does not support cron trigger testing yet. This is a known limitation tracked in [Cloudflare Workers SDK issue #8466](https://github.com/cloudflare/workers-sdk/issues/8466).
+
+## Setup
+
+Within your `wrangler.jsonc` file, add a new section called `triggers`:
+
+```jsonc title="wrangler.jsonc"
+"triggers": {
+  "crons": ["* * * * *"]
+}
+---
+Where `crons` includes an array of cron schedules.
+---
+```
+
+Within your `worker.tsx` file, adjust your `defineApp` function:
+
+```tsx
+const app = defineApp([
+  ...
+]);
+
+export default {
+  fetch: app.fetch,
+  async scheduled(controller: ScheduledController) {
+    switch (controller.cron) {
+      // Runs every minute
+      case "* * * * *":
+        console.log("🧹 Clean up Unverified Users");
+        break;
+    }
+    console.log("⏰ cron processed");
+  },
+} satisfies ExportedHandler<Env>;
+```
+
+Notice the `case` matches the cron schedule defined within the `wrangler.jsonc` file.
+
+In the example above, `console.log("🧹 Clean up Unverified Users");` runs every minute. However, you could account for different schedules by adding more triggers to your `wrangler.jsonc` file and more cases to your `switch` statement:
+
+```jsonc title="wrangler.jsonc"
+"crons": ["* * * * *", "0 0 * * *"]
+```
+
+```tsx title="worker.tsx"
+// Runs every hour
+case "0 0 * * *":
+  console.log("🔄 Update something");
+  break;
+```
+
+## Cloudflare Cron Triggers
+
+Within the Cloudflare Dashboard UI, you can view all the cron triggers for your worker. Click on the **Settings** tab, and then click on the **Cron Triggers** section.
+
+![](./images/trigger-events.png)
+
+To view more details about the events, click on the **View Events** link.
+
+![](./images/trigger-events-view-events.png)
+
+You can see a list of all the events that have been triggered for your worker.
+
+![](./images/cloudflare-cron-events.png)
+
+## Further Reading
+
+- [Cloudflare Cron Triggers](https://developers.cloudflare.com/workers/configuration/cron-triggers/)
+
