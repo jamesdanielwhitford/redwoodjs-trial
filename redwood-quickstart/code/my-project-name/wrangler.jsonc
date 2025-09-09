@@ -1,0 +1,41 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "my-project-name",
+  "main": "src/worker.tsx",
+  "compatibility_date": "2025-05-07",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "SESSION_DURABLE_OBJECT",
+        "class_name": "SessionDurableObject"
+      }
+    ]
+  },
+  "vars": {
+    "WEBAUTHN_APP_NAME": "my-project-name"
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "SessionDurableObject"
+      ]
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "my-project-name-industrial-antlion",
+      "database_id": "e85cbec7-49d3-4d9f-9f1f-a4d49f8e55d4"
+    }
+  ]
+}
