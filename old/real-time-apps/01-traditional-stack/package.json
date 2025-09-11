@@ -1,0 +1,43 @@
+{
+  "name": "live-task-board-traditional",
+  "version": "1.0.0",
+  "description": "Real-time task board built with Express, PostgreSQL, and Socket.io",
+  "main": "backend/server.js",
+  "type": "module",
+  "scripts": {
+    "dev:backend": "nodemon backend/server.js",
+    "dev:frontend": "cd frontend && npm run dev",
+    "start:backend": "node backend/server.js",
+    "migrate": "node backend/database/migrate.js",
+    "seed": "node backend/database/seed.js",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build": "cd frontend && npm run build",
+    "start": "npm run start:backend"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4",
+    "pg": "^8.11.3",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.3.1",
+    "joi": "^17.11.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "real-time",
+    "socket.io",
+    "express",
+    "postgresql",
+    "task-management",
+    "collaborative"
+  ],
+  "author": "Traditional Stack Demo",
+  "license": "MIT"
+}

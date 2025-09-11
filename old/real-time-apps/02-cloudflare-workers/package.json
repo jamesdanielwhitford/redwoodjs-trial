@@ -1,0 +1,31 @@
+{
+  "name": "live-task-board-cloudflare",
+  "version": "1.0.0",
+  "description": "Real-time task board built with Cloudflare Workers and D1",
+  "scripts": {
+    "dev:worker": "cd worker && wrangler dev --local --persist",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run dev:worker\" \"npm run dev:frontend\"",
+    "deploy:worker": "cd worker && wrangler deploy",
+    "deploy:frontend": "cd frontend && npm run build && wrangler pages publish dist",
+    "deploy": "npm run deploy:worker && npm run deploy:frontend",
+    "db:create": "cd worker && wrangler d1 create live-task-board",
+    "db:migrate:local": "cd worker && wrangler d1 migrations apply live-task-board --local",
+    "db:migrate:remote": "cd worker && wrangler d1 migrations apply live-task-board --remote",
+    "db:migrate": "npm run db:migrate:local && npm run db:migrate:remote",
+    "setup": "npm install && cd worker && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "keywords": [
+    "cloudflare-workers",
+    "durable-objects",
+    "d1-database",
+    "real-time",
+    "websockets",
+    "collaborative"
+  ],
+  "author": "Cloudflare Workers Demo",
+  "license": "MIT"
+}

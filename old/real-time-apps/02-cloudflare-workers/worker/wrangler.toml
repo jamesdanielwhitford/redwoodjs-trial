@@ -1,0 +1,44 @@
+name = "live-task-board-worker"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ENVIRONMENT = "development"
+JWT_SECRET = "development-secret-change-in-production"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "live-task-board"
+database_id = "placeholder-id-update-after-creating-database"
+migrations_dir = "migrations"
+
+[[durable_objects.bindings]]
+name = "TASK_BOARD"
+class_name = "TaskBoardDurableObject"
+
+[[durable_objects.bindings]]
+name = "SESSIONS"
+class_name = "SessionDurableObject"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["TaskBoardDurableObject", "SessionDurableObject"]
+
+[build]
+command = "npm run build"
+
+# Production environment
+[env.production]
+vars = { ENVIRONMENT = "production" }
+
+[[env.production.d1_databases]]
+binding = "DB"
+database_name = "live-task-board-prod"
+database_id = "production-database-id-here"
+
+# Development settings
+[dev]
+local = true
+port = 8787
+persist = true
