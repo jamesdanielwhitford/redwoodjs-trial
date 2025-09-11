@@ -1,0 +1,29 @@
+{
+  "name": "quick-notes-cloudflare-workers",
+  "version": "1.0.0",
+  "description": "Quick Notes - Cloudflare Workers + D1 + React Stack",
+  "scripts": {
+    "dev:worker": "wrangler dev",
+    "dev:frontend": "vite",
+    "dev": "concurrently \"npm run dev:worker\" \"npm run dev:frontend\"",
+    "build:frontend": "vite build",
+    "build": "npm run build:frontend",
+    "deploy": "wrangler deploy",
+    "db:migrate": "wrangler d1 migrations apply quick-notes-db",
+    "db:local": "wrangler d1 migrations apply quick-notes-db --local"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "wrangler": "^3.22.1",
+    "concurrently": "^8.2.2"
+  }
+}
